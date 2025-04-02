@@ -19,8 +19,7 @@ class FileEntry extends Model implements HasMedia
 
     public function registerMediaCollections(): void
     {
-        $this->addMediaCollection('ramzi')
-            // ->useDisk('google');
-            ->useDisk('r2');
+        $this->addMediaCollection('file-management')
+            ->useDisk('cloudflare_r2');
     }
 }

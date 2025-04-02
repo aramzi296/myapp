@@ -10,7 +10,7 @@ class FileController extends Controller
 {
     public function index()
     {
-        $fileEntry = FileEntry::with('media')->get();
+        $fileEntry = FileEntry::with('media')->latest()->paginate(10);
 
         return view('files.index', compact('fileEntry'));
     }
@@ -44,7 +44,7 @@ class FileController extends Controller
             foreach ($request->file('file') as $file) {
                 // dd($file);
                 $fileEntry->addMedia($file)
-                    ->toMediaCollection('ramzi');
+                    ->toMediaCollection('file-management');
             }
         }
 
@@ -67,7 +67,7 @@ class FileController extends Controller
 
     public function destroy(FileEntry $fileEntry)
     {
-        $fileEntry->clearMediaCollection('ramzi');
+        $fileEntry->clearMediaCollection('file-management');
         $fileEntry->delete();
 
         return redirect()->route('files.index')
@@ -76,13 +76,14 @@ class FileController extends Controller
 
     public function download(FileEntry $fileEntry)
     {
-        $mediaItem = $fileEntry->getFirstMedia('ramzi');
-
+        // dd($fileEntry);
+        $mediaItem = $fileEntry->getFirstMedia('file-management');
+        // dd($mediaItem);
 
         if ($mediaItem) {
 
             // Baca konten file
-            $fileContents = Storage::disk('r2')->get($mediaItem->getPath());
+            $fileContents = Storage::disk('cloudflare_r2')->get($mediaItem->getPath());
 
             // Buat response dengan header yang memaksa download
             $response = response($fileContents)

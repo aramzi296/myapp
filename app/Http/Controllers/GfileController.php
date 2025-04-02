@@ -19,7 +19,7 @@ class GfileController extends Controller
 
     public function index()
     {
-        $fileEntry = GfileMedia::with('gfile')->paginate(2);
+        $fileEntry = GfileMedia::with('gfile')->paginate(10);
 
         // dd($fileEntry);
 

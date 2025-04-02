@@ -11,7 +11,7 @@
 
                 <div class="card-body">
                     @php
-                    $media = $fileEntry->getFirstMedia('ramzi');
+                    $media = $fileEntry->getFirstMedia('file-management');
                     @endphp
 
                     <div class="mb-4">

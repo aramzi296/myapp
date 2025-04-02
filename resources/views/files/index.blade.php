@@ -40,7 +40,7 @@
                             <tbody>
                                 @forelse ($fileEntry as $index => $file)
                                 @php
-                                $media = $file->getFirstMedia('ramzi');
+                                $media = $file->getFirstMedia('file-management');
                                 @endphp
                                 <tr>
                                     <td>{{ $index + 1 }}</td>
